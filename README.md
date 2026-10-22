@@ -70,3 +70,11 @@ Per lo sviluppo: installare le dipendenze con il workflow Sites; eseguire `node 
 Il simbolo SVG e il pulsante Invia condividevano `id="send"`: `getElementById` restituiva il simbolo, quindi `controls()` sollevava un errore prima di inviare una domanda, anche dopo la dettatura. I simboli ora hanno identificativi distinti. Il test `node tests/home-markup.test.mjs` verifica gli ID nell’HTML reale del sito e del widget, i riferimenti SVG e la sintassi degli script incorporati; riproduceva il difetto prima della correzione. Corretto anche il prefisso della fotografia incorporata (`./data:` non era un URL valido). Risorsa widget v7 e URL degli asset aggiornati per invalidare le copie precedenti.
 
 I test precedenti simulavano elementi DOM senza leggere l’HTML e non rilevavano la collisione. I test locali non attestano ancora il ciclo completo nel client ChatGPT né l’audio su iPad. Il sito esterno continua a trasferire la richiesta al plugin: non dispone di un modello IA autonomo. Rollback: ripubblicare la versione Sites precedente.
+
+## Caricamento dell’app integrata — risorsa v8
+
+Dopo la segnalazione «App non disponibile», la richiesta del docente è stata effettivamente letta con `clara_chat_read` e una risposta è stata consegnata con `clara_chat_reply`. Questo verifica il servizio, non il caricamento del pannello o l’invio automatico dalla UI.
+
+Il widget ora carica soltanto le immagini già pubbliche su GitHub da URL fissati al commit, dichiarando `raw.githubusercontent.com` nella CSP delle risorse. Non vengono pubblicati dati di progetto o conversazioni. Il sito mantiene i propri asset locali. Il generatore impone un budget interno di 200 KB all’HTML: non è un limite ufficiale dichiarato della piattaforma. La risorsa v8 invalida la cache; le URI precedenti restano leggibili.
+
+La riduzione del payload affronta un rischio di caricamento, ma la causa del messaggio del client non è provata dai log disponibili: nessun collaudo del pannello ChatGPT è stato completato. Restano da verificare apertura, invio e risposta sul client reale.

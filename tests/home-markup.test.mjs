@@ -15,7 +15,10 @@ for (const [name, html] of [['website', shell], ['widget', widget]]) {
     assert.equal(elements.find(m => m[2] === use[1])?.[1], 'symbol');
   }
 }
-assert(!widget.includes('./data:image'), 'Embedded portrait must be a valid data URL');
+assert(!widget.includes('data:image'), 'Public artwork must not inflate the app resource');
+assert(Buffer.byteLength(widget) < 200000, 'Widget must stay under its 200 KB project budget');
+assert(widget.includes('https://raw.githubusercontent.com/gb69prof/Clara/a6efce459944f72bec530c350c5c74428e824904/public/assets/clara-reference.png'));
+assert(fs.readFileSync('lib/clara-mcp.mjs','utf8').includes("resourceDomains:['https://raw.githubusercontent.com']"), 'Image origin must be declared in resource CSP');
 const scripts = [...widget.matchAll(/<script>([\s\S]*?)<\/script>/g)];
 assert.equal(scripts.length, 3);
 for (const [i, match] of scripts.entries()) new vm.Script(match[1], {filename: `embedded-${i}.js`});
