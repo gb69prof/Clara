@@ -6,7 +6,7 @@
   <meta name="description" content="Clara, la scrivania didattica di gbprof. Archivio privato, progetti didattici e lavori programmati.">
   <title>Clara — La tua scrivania didattica</title>
   <link rel="icon" href="icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=7"><script defer src="bridge.js?v=7"></script><script defer src="app.js?v=7"></script><script defer src="home.js?v=7"></script>
+  <link rel="stylesheet" href="styles.css?v=9"><script defer src="bridge.js?v=9"></script><script defer src="app.js?v=9"></script><script defer src="home.js?v=9"></script>
 </head>
 <body class="home-mode">
 <a class="skip" href="#main">Vai al contenuto</a>
@@ -26,11 +26,11 @@
     <button class="icon-btn menu-btn" id="menuToggle" aria-label="Apri il menu" aria-controls="sidebar" aria-expanded="false"><span data-icon="menu"></span></button>
     <div class="breadcrumb">Il mio spazio <span>/</span> <strong id="crumb">Scrivania</strong></div>
     <button class="search-button" data-action="search"><span data-icon="search"></span><span>Cerca nel tuo spazio</span><kbd>⌕</kbd></button>
-    <button class="clara-call" data-action="goto" data-view="scrivania" aria-label="Apri la vista vocale di Clara"><img src="assets/clara.webp" alt="" width="28" height="28"><span>Parla con Clara</span><span class="call-mic" data-icon="mic"></span></button>
+    <button class="clara-call" data-action="goto" data-view="scrivania" aria-label="Apri la conversazione di Clara"><img src="assets/clara.webp" alt="" width="28" height="28"><span>Scrivi a Clara</span><span class="call-mic" data-icon="mic"></span></button>
     <button class="icon-btn" data-action="guide" aria-label="Guida e funzioni di Clara"><span data-icon="help"></span></button>
     <button class="sync-chip" id="syncStatus" data-action="sync">Caricamento…</button><span class="top-avatar" aria-hidden="true">GB</span>
   </header>
-  <div class="demo-bar"><span class="demo-pill">PRIVATO</span><span>Archivio privato sul server · materiali scolastici dimostrativi · connessioni esterne disattivate</span><button data-action="guide">Come si usa? <span>↗</span></button></div>
+  <div class="demo-bar"><span class="demo-pill">PRIVATO</span><span>Archivio privato sul server · materiali scolastici dimostrativi · strumenti esterni disponibili nella chat secondo autorizzazioni</span><button data-action="guide">Come si usa? <span>↗</span></button></div>
   <section id="claraHome" class="clara-home">
   <a class="ch-skip-link" href="#request">Vai alla scrittura</a>
   <svg class="ch-icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -58,31 +58,34 @@
       </svg>
     </div>
 
-    <section class="ch-interaction" aria-label="Parla o scrivi a Clara">
+    <section class="ch-interaction" aria-label="Scrivi o detta un messaggio a ChatGPT">
+      <p id="connection-status" class="ch-connection" role="status">Verifico il collegamento alla conversazione…</p>
       <button class="ch-voice-button" id="voice" type="button" aria-describedby="voice-help" aria-pressed="false">
         <span class="ch-microphone"><svg class="ch-icon"><use href="#ch-icon-mic"/></svg></span>
-        <span class="ch-voice-copy"><span class="ch-voice-title" id="voice-title">Parla con Clara</span><span id="voice-help">Tocca per parlare. Clara ti risponde a voce.</span></span>
+        <span class="ch-voice-copy"><span class="ch-voice-title" id="voice-title">Detta il messaggio</span><span id="voice-help">Controlla il testo, poi invialo a ChatGPT.</span></span>
       </button>
 
       <form id="composer" class="ch-composer">
         <label class="ch-section-title" for="request">Scrivi a Clara</label>
         <textarea id="request" name="request" rows="3" maxlength="4000" required placeholder="Scrivi qui la tua richiesta..."></textarea>
         <div class="ch-composer-actions">
-          <fieldset class="ch-response-mode">
-            <legend>Risposta</legend>
-            <div class="ch-mode-options">
-              <label><input type="radio" name="responseMode" value="voice" checked><span><svg class="ch-icon"><use href="#ch-icon-sound"/></svg>Vivavoce</span></label>
-              <label><input type="radio" name="responseMode" value="text"><span><svg class="ch-icon"><use href="#ch-icon-document"/></svg>Scritta</span></label>
-            </div>
-          </fieldset>
-          <button class="ch-send-button" id="send" type="submit"><svg class="ch-icon"><use href="#ch-icon-send"/></svg><span>Invia</span></button>
+          <p class="ch-answer-location">Risposta scritta nella chat<br><small>Per parlare in tempo reale, usa Voice in ChatGPT.</small></p>
+          <button class="ch-send-button" id="send" type="submit" disabled><svg class="ch-icon"><use href="#ch-icon-send"/></svg><span>Invia a ChatGPT</span></button>
         </div>
       </form>
       <p class="ch-status" id="status" role="status" aria-live="polite"></p>
-      <div class="ch-chat-actions"><button id="check-reply" class="ch-text-button" type="button" hidden>Controlla risposta</button><button id="retry-chat" class="ch-text-button" type="button" hidden>Riprova invio</button><button id="new-chat" class="ch-text-button" type="button" hidden>Nuova richiesta</button></div>
-      <section class="ch-reply" id="reply" tabindex="-1" aria-labelledby="reply-title" hidden>
-        <div class="ch-reply-heading"><h2 id="reply-title">Clara</h2><button type="button" class="ch-text-button" id="play-reply" hidden>Ascolta risposta</button></div>
-        <p id="reply-text"></p>
+      <div class="ch-chat-actions">
+        <button id="copy-message" class="ch-text-button" type="button">Copia messaggio</button>
+        <button id="confirm-checked" class="ch-text-button" type="button" hidden>Ho controllato la chat</button>
+      </div>
+      <p id="standalone-help" class="ch-status" hidden>Apri la conversazione che vuoi continuare e chiedi «Apri Clara accanto a questa chat». Il sito non può accedere direttamente alla tua chat o alla tua memoria.</p>
+      <section id="conversation" class="ch-reply" aria-labelledby="conversation-title" hidden>
+        <h2 id="conversation-title">Messaggi inviati da questo pannello</h2>
+        <ol id="sent-messages" class="ch-sent" aria-live="polite"></ol>
+        <p class="ch-status">Le risposte e la cronologia completa restano nella conversazione ChatGPT. Questo pannello non le legge né le duplica.</p>
+      </section>
+      <section id="legacy-exchange" class="ch-reply" hidden>
+        <h2>Scambio della versione precedente</h2><p id="legacy-text"></p>
       </section>
     </section>
 
@@ -91,9 +94,9 @@
       <button class="ch-shortcut" type="button" data-action="goto" data-view="biblioteca"><span class="ch-shortcut-icon"><svg class="ch-icon"><use href="#ch-icon-document"/></svg></span><span><strong>Materiali</strong><small>Testi, schede e risorse</small></span><svg class="ch-icon ch-chevron"><use href="#ch-icon-arrow"/></svg></button>
       <button class="ch-shortcut" type="button" data-action="goto" data-view="progetti"><span class="ch-shortcut-icon"><svg class="ch-icon"><use href="#ch-icon-people"/></svg></span><span><strong>Progetti</strong><small>Spunti e pianificazione</small></span><svg class="ch-icon ch-chevron"><use href="#ch-icon-arrow"/></svg></button>
     </nav>
-    <p class="ch-preview-note" id="preview-note">Dialogo con ChatGPT · Voce del dispositivo</p>
+    <p class="ch-preview-note" id="preview-note">Clara accompagna la tua conversazione ChatGPT</p>
     <p class="ch-privacy-note">Il microfono si attiva solo al tuo tocco. La dettatura può usare i servizi del browser.</p>
-    <p class="ch-privacy-note">Ultimi 10 scambi disponibili per 24 ore nel tuo archivio privato.</p>
+    <p class="ch-privacy-note">I nuovi messaggi vengono inviati a ChatGPT senza creare un secondo archivio di conversazioni.</p>
     <noscript><p class="ch-no-script">Attiva JavaScript per scrivere a Clara e usare i comandi vocali.</p></noscript>
   </div>
 

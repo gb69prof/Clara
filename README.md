@@ -1,80 +1,51 @@
-# Clara — scrivania didattica privata
+# Clara — La tua scrivania didattica
 
-Clara v4 conserva incarichi, risultati, revisioni, istruzioni e scadenze del docente in D1. Il Site resta privato del proprietario. Il plugin MCP ha l’Extension globale e di conversazione per l’interfaccia fullscreen. Ritratto originale, grafica e voce del dispositivo sono conservati. Le schede didattiche d’esempio e l’orario inventato sono distinti dagli incarichi reali.
+Clara v9 è un pannello della conversazione ChatGPT: invia il testo alla chat che la ospita, senza un secondo chatbot o una nuova memoria conversazionale. **Le risposte appaiono nella conversazione ChatGPT, non automaticamente dentro la home.**
 
-## Uso
+## Aprire e provare
 
-Creare un incarico indicando classe, formato, obiettivi e testi/fonti necessari. Dopo l’attivazione della programmazione, «Affida a Clara» inserisce esplicitamente il lavoro nella coda IA. Un task cloud collegato al Site controlla la coda ogni ora, anche quando ChatGPT è chiuso. Ogni esecuzione prende in carico un incarico; produce una bozza oppure salva un risultato parziale e rimette il lavoro in coda. I risultati attendono la revisione del docente. Le revisioni dei lavori affidati tornano nella coda. Pausa e annullamento invalidano la presa in carico.
+Nella conversazione che vuoi continuare, con il plugin Clara disponibile, chiedi: **«Apri Clara accanto a questa chat»**. Lo strumento `clara_conversation` apre il pannello di conversazione. Scrivi e premi **Invia a ChatGPT**: il messaggio deve comparire nella stessa chat, seguito dalla risposta. Puoi continuare da Clara oppure dalla chat.
 
-«Lavora con ChatGPT» permette invece lo sviluppo immediato nella conversazione dopo il collegamento del plugin. «Prepara una traccia guidata» rimane una funzione separata: genera uno schema da modello didattico senza IA in circa sette secondi.
+Il collegamento globale `clara_open` resta disponibile per la scrivania. Il [sito privato](https://clara-scrivania-gbprof.gbprof.chatgpt.site) conserva le funzioni didattiche, ma non ha una conversazione ospitante: l’invio è disabilitato e puoi copiare il testo nella chat. Non creare una nuova conversazione se vuoi conservare il contesto di quella corrente.
 
-Aprire le bozze, creare nuove versioni, scaricare Markdown/HTML o stampare/PDF. L’HTML esportato è una scheda leggibile, non una PWA installabile. Per il formato PWA l’agente può consegnare progettazione e codice dichiarandone lo stato; build, verifica e pubblicazione dell’app sono separate. Memoria e agenda sono private di Clara; nessuna modifica alla memoria generale di ChatGPT o a Google Calendar.
+Il microfono è **dettatura**: se browser, host e permessi la consentono, prepara il testo da controllare e inviare. Non attiva Voice e non invia automaticamente. Quando non disponibile è disabilitato con una spiegazione. Per parlare con ChatGPT usa Voice nell’interfaccia ChatGPT, se disponibile nel tuo client.
 
-## Esecuzione cloud
+## Funzioni conservate
 
-Istruzioni versionate in `lib/clara-agent.mjs`, pubblicate a `/api/agent/instructions`. Coda leggibile con GET `/api/agent`; writer POST sullo stesso percorso. Acquisizione dell’accesso supportato: ad ogni run `sites_get_site` del Site collegato, conferma owner-private, token di servizio effimero inviato solo al suo URL nell’header `OAI-Sites-Authorization`. Mai token in codice, prompt, file, output o argomenti. L’accesso di servizio non impersona l’utente e non autorizza app esterne. Conservare tutti i controlli della piattaforma.
+Scrivania, Le mie classi, Lezioni e laboratori, Progetti in corso, Biblioteca, Scuola e calendario. Restano anche le Note di progetto (già “Memoria di Clara”), versioni delle bozze, revisione, approvazione, esportazioni e coda programmata. Le note sono dati espliciti del progetto, non memoria personale dell’account. Schede e orario dimostrativi restano segnalati.
 
-Il writer gestisce `claim`, `checkpoint`, `complete`, `continue`, `needs_input`; `configure` registra il task nativo dopo la sua creazione verificata. Claim atomico tramite CAS D1, lease di 20 minuti rinnovata dai checkpoint, deduplicazione con requestId stabile. Le lease scadute vengono recuperate dal controllo successivo. Non è un processo continuo: latenza fino al controllo orario, più eventuali incarichi precedenti e continuazioni. Un task salvato prova la programmazione; soltanto una run cloud riuscita prova la disponibilità dei suoi strumenti e la consegna.
+La preparazione guidata produce schemi senza IA. “Lavora con ChatGPT” invia l’incarico alla chat; “Affida a Clara” usa la coda preesistente quando attiva. Vedi [esecuzione programmata](docs/esecuzione-programmata.md). Non sono stati migrati o cancellati dati, né attivate nuove connessioni esterne.
 
-Ogni run deve scaricare le istruzioni aggiornate, produrre contenuto effettivo, salvare checkpoint e consegna, quindi rileggere il risultato. Nessuna bozza dimostrativa automatica se la coda è vuota. Se mancano materiali essenziali, mettere in pausa con una domanda al docente. Fonti soltanto se realmente consultate; risultati e fonti vanno revisionati prima dell’uso didattico.
+## Architettura
 
-## Architettura e limiti
+- Vinext 1.0.0-beta.5 / Vite, compatibilità Next 16 e React 19, Worker Sites con D1 `DB`, accesso privato del proprietario.
+- `public/index.html`, `styles.css`, `home.js`: home essenziale con ritratto, scrittura, dettatura e stato di invio. `app.js`: sezioni didattiche.
+- `public/bridge.js`: handshake MCP Apps, `ui/message` verso la chat e `tools/call` per l’archivio. Alias documentati `window.openai` solo quando la capacità standard non è disponibile. Nessun retry automatico dopo un invio ambiguo.
+- `lib/clara-mcp.mjs`: 16 strumenti, entrypoint globale e di conversazione distinti, risorsa `ui://clara/scrivania-v9.html`; URI precedenti compatibili.
+- `scripts/generate-ui.mjs`: genera `lib/clara-ui.ts` dagli stessi sorgenti. Build, dev e test lo eseguono automaticamente. CSS e JS incorporati; immagini già pubbliche da URL GitHub fissati a un commit e dichiarati nella CSP. Budget interno HTML 200 KB, non limite ufficiale della piattaforma.
+- `lib/clara-store.mjs`, `clara-agent.mjs`: archivio privato, CAS, revisioni, coda. `clara-chat.mjs` e `/api/chat` restano per compatibilità con vecchi scambi; la nuova home non salva né interroga nuove conversazioni in D1.
 
-- Vinext/Sites starter e cattura dei connettori mantenuti. UI sorgente in `public/`; `scripts/generate-ui.mjs` incorpora CSS/JS e ritratto nel widget MCP. Nessuna dipendenza grafica remota.
-- D1 `clara_workspace`, archivio singleton dietro l’accesso owner-only. Non condividere senza membership e partizionamento per utente. Validazione, deduplicazione, revisione/CAS e retry. Limite 2 MB, 150 incarichi, 200 note/scadenze, 10 versioni per incarico, ultimi 6 checkpoint, 60.000 caratteri per documento. Esportare prima di svuotare l’archivio. Reset invalidante per gli scrittori e conservazione della configurazione del task.
-- Preparazione guidata `waitUntil`, token e checkpoint, ripresa dopo 35 secondi se interrotta. È distinta dalla coda IA durevole controllata dal task cloud.
-- `/mcp`: protocollo stateless, dodici strumenti, risorsa UI fullscreen con entrypoint global/thread. Strumenti per coda e azioni IA riutilizzano i writer D1. Il collegamento MCP OAuth è distinto dall’accesso di servizio Site.
-- Voce SpeechSynthesis e SpeechRecognition se disponibili, risposte predefinite, ritratto in primo piano e movimento illustrativo delle labbra. Nessuna voce nativa ChatGPT/API vocale. Stop/chiusura/cambio pagina fermano l’audio; dettatura eventualmente fornita dai servizi del browser. Dialogo vocale non archiviato.
-- Drive, GitHub, Google Calendar e gbprof.it non collegati; nessun file esterno modificato. Le note del docente restano subordinate ai vincoli correnti e alle istruzioni di sistema.
+Il frontend non riceve una copia automatica della cronologia, della memoria dell’account o degli strumenti connessi. ChatGPT può usare il contesto e gli strumenti effettivamente disponibili nella conversazione, secondo autorizzazioni. Nessuna API key per un modello separato è necessaria.
 
-## Verifica
+## Sviluppo e verifiche
 
-`node --test tests/server.test.mjs`: SQLite reale/adattatore D1, persistenza e CAS, input e concorrenza, tracce guidate, checkpoint/bozze, revisioni/approvazione, MCP discovery/UI/schema, claim esclusivi, retry idempotenti, continuazione, scadenza/ripresa delle lease, pause/annullamenti e reset.
+Node >=22.13 e pnpm 11.25.0. Installare le dipendenze con il workflow Sites oppure `pnpm install --frozen-lockfile` in un ambiente Node compatibile.
 
-`node tests/ui.test.cjs`: sette sezioni, payload, form, escape e Markdown, filtri, stato obsoleto e controlli. Typecheck e build Vinext. Test HTTP privato dopo pubblicazione: download istruzioni, accesso coda, writer/consegna/rilettura e blocco anonimo. La programmazione nativa e la prima run cloud vanno documentate separatamente: non confondere un test del writer con un task eseguito.
+```sh
+pnpm test
+pnpm typecheck
+pnpm build
+pnpm dev
+```
 
-QA reale di resa, fullscreen, voce e microfono su iPad non effettuata: control-browser non disponibile. Nessun server di preview o browser improvvisato. Installazione/collegamento del plugin richiedono l’azione dell’utente nel suo account.
+Aprire l’URL locale mostrato dal server. Il sito locale non può provare il collegamento alla chat: serve il pannello pubblicato nell’host ChatGPT. L’archivio locale D1 è separato da quello di produzione; non copiarvi dati riservati per i test.
 
-## Versione 6 — home essenziale e dialogo reale
+I test coprono trasporto e timeout, mancati permessi/capacità, dettatura e revisione del testo, HTML reale e identificativi, sezioni didattiche, persistenza, concorrenza, strumenti MCP, progetti e coda. Usano un host/DOM di prova: **non dimostrano da soli il ciclo completo nel client ChatGPT**. Vedi [analisi, capacità e collaudo](docs/integrazione-nativa.md).
 
-La home usa il volto e la composizione del riferimento approvato: Clara al centro, comando vocale dominante, campo scritto con Vivavoce/Scritta e accessi Lezioni/Materiali/Progetti. Le sette sezioni, l’archivio D1, la coda, le bozze, le revisioni, la memoria e l’agenda sono mantenuti. Il menu in alto a sinistra apre anche le sezioni meno frequenti. Le lezioni e schede d’esempio preesistenti restano dichiarate come esempi.
+## Pubblicazione e ripristino
 
-### Come provare
+Branch GitHub `feat/clara-live-integration`, [PR #2](https://github.com/gb69prof/Clara/pull/2). Backup prima di v9: `backup/clara-before-native-v9` al commit `7f0eb1257b146043db53fd81da75dd17ac13ff09`.
 
-Aprire Clara dal plugin in ChatGPT Work, oppure dalla pagina del plugin `clara_open`. Inviare una domanda breve. La home invia un messaggio reale alla conversazione con `ui/message`; ChatGPT legge lo scambio e restituisce la risposta con `clara_chat_reply`. Il pannello recupera il testo e lo legge se è stata scelta Vivavoce. Non vengono usate risposte predefinite né un servizio API aggiuntivo. Il plugin deve essere collegato e il client deve supportare l’invio dei messaggi dalle app.
+Un commit GitHub non pubblica automaticamente Clara. La pipeline Sites usa il checkout sincronizzato, `.openai/hosting.json`, build Worker, commit sorgente verificato e archivio di distribuzione corrispondente. Preservare il project_id esistente e l’accesso owner-only. Salvare/pubblicare con gli strumenti Sites e verificare lo stato terminale del deploy. Non salvare token nel repository.
 
-Dal sito standalone, Invia conserva la richiesta e apre la stessa Clara dentro ChatGPT con il testo già pronto: premere **Invia a ChatGPT**. Nel link passa soltanto l’identificativo casuale, non il testo. La pagina web da sola non contiene un modello AI. Se gli strumenti aggiornati non compaiono nella conversazione già aperta, riaprire Clara in una nuova conversazione.
-
-Il microfono usa SpeechRecognition, se disponibile e autorizzato; le risposte vengono lette con SpeechSynthesis del dispositivo. Il servizio di dettatura del browser può richiedere rete. Su iPad o in un iframe con permessi limitati può essere necessario il microfono della tastiera; se l’audio automatico non parte, toccare **Ascolta risposta**. Questa non è la modalità vocale nativa di ChatGPT e non è una sessione realtime continua.
-
-### Integrazione
-
-- `public/home.js`: interazione della home, invio al modello attraverso l’host, recupero della risposta, dettatura, lettura, interruzione, errori e handoff dal sito.
-- `public/bridge.js`: trasporto MCP/HTTP, capacità dell’host e deep link della richiesta.
-- `lib/clara-chat.mjs`: scambi privati con idempotenza e CAS nello stesso archivio owner-only. Massimo 10 scambi, leggibili per 24 ore; quelli scaduti vengono eliminati al successivo invio. Le risposte consegnate non vengono sovrascritte.
-- Strumenti MCP `clara_chat_request`, `clara_chat_read`, `clara_chat_reply`. La consegna al pannello richiede l’esecuzione effettiva del tool da parte del modello. Il timeout non produce una risposta simulata: propone verifica della chat e controllo manuale.
-- Il normale polling dello stato non sostituisce il DOM della home: la bozza scritta, il focus e lo stato vocale restano stabili. Il corpo della conversazione non è incluso nei risultati generali dell’archivio.
-- `scripts/generate-ui.mjs`: incorpora gli stessi CSS, JS e fotografia nel widget MCP. La home del sito e quella del plugin provengono dallo stesso sorgente.
-- Nuova `POST/GET /api/chat` per preparare una richiesta dal sito e riaprirla nel plugin. Non c’è un endpoint web pubblico per inventare o scrivere risposte del modello.
-
-### Controlli della versione 6
-
-`node --test tests/server.test.mjs`: 9 test, inclusi scambio reale domanda/risposta, concorrenza preesistente, capienza/scadenza, idempotenza, discovery e strumenti MCP. `node tests/ui.test.cjs`: regressione delle sezioni e delle azioni esistenti. `node tests/home.test.cjs`: invio embedded → callback → risposta, testo sicuro e handoff web; è una simulazione DOM, non un collaudo del client ChatGPT. Controllo sintattico, TypeScript e build completano la verifica.
-
-L’ispezione visiva tramite browser dell’ambiente è stata bloccata da una policy. Microfono, voce e ciclo completo nel client ChatGPT su iPad restano da provare con il docente; non confondere i test server o DOM con questa verifica.
-
-Per lo sviluppo: installare le dipendenze con il workflow Sites; eseguire `node scripts/generate-ui.mjs` prima di `npm run dev` o `npm run build`. Pubblicare con il workflow Sites mantenendo il project_id esistente e l’accesso privato. Il rollback consiste nel ripubblicare la versione precedente: i dati di progetto non sono migrati né eliminati da questo aggiornamento.
-
-## Correzione del 22 ottobre — invio bloccato
-
-Il simbolo SVG e il pulsante Invia condividevano `id="send"`: `getElementById` restituiva il simbolo, quindi `controls()` sollevava un errore prima di inviare una domanda, anche dopo la dettatura. I simboli ora hanno identificativi distinti. Il test `node tests/home-markup.test.mjs` verifica gli ID nell’HTML reale del sito e del widget, i riferimenti SVG e la sintassi degli script incorporati; riproduceva il difetto prima della correzione. Corretto anche il prefisso della fotografia incorporata (`./data:` non era un URL valido). Risorsa widget v7 e URL degli asset aggiornati per invalidare le copie precedenti.
-
-I test precedenti simulavano elementi DOM senza leggere l’HTML e non rilevavano la collisione. I test locali non attestano ancora il ciclo completo nel client ChatGPT né l’audio su iPad. Il sito esterno continua a trasferire la richiesta al plugin: non dispone di un modello IA autonomo. Rollback: ripubblicare la versione Sites precedente.
-
-## Caricamento dell’app integrata — risorsa v8
-
-Dopo la segnalazione «App non disponibile», la richiesta del docente è stata effettivamente letta con `clara_chat_read` e una risposta è stata consegnata con `clara_chat_reply`. Questo verifica il servizio, non il caricamento del pannello o l’invio automatico dalla UI.
-
-Il widget ora carica soltanto le immagini già pubbliche su GitHub da URL fissati al commit, dichiarando `raw.githubusercontent.com` nella CSP delle risorse. Non vengono pubblicati dati di progetto o conversazioni. Il sito mantiene i propri asset locali. Il generatore impone un budget interno di 200 KB all’HTML: non è un limite ufficiale dichiarato della piattaforma. La risorsa v8 invalida la cache; le URI precedenti restano leggibili.
-
-La riduzione del payload affronta un rischio di caricamento, ma la causa del messaggio del client non è provata dai log disponibili: nessun collaudo del pannello ChatGPT è stato completato. Restano da verificare apertura, invio e risposta sul client reale.
+Rollback applicativo: ripubblicare con Sites la versione precedente `appgprj_6acb4747a00881919a0f293cbce0b739~appgver_9ddfda219ca0819193a7c20b8afbbca9`. Rollback sorgente: ripartire dal branch di backup senza sovrascrivere lavori successivi. Nessuna migrazione D1 è richiesta da v9; il ripristino del codice non cancella i dati.
