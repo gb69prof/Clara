@@ -64,3 +64,9 @@ Il microfono usa SpeechRecognition, se disponibile e autorizzato; le risposte ve
 L’ispezione visiva tramite browser dell’ambiente è stata bloccata da una policy. Microfono, voce e ciclo completo nel client ChatGPT su iPad restano da provare con il docente; non confondere i test server o DOM con questa verifica.
 
 Per lo sviluppo: installare le dipendenze con il workflow Sites; eseguire `node scripts/generate-ui.mjs` prima di `npm run dev` o `npm run build`. Pubblicare con il workflow Sites mantenendo il project_id esistente e l’accesso privato. Il rollback consiste nel ripubblicare la versione precedente: i dati di progetto non sono migrati né eliminati da questo aggiornamento.
+
+## Correzione del 22 ottobre — invio bloccato
+
+Il simbolo SVG e il pulsante Invia condividevano `id="send"`: `getElementById` restituiva il simbolo, quindi `controls()` sollevava un errore prima di inviare una domanda, anche dopo la dettatura. I simboli ora hanno identificativi distinti. Il test `node tests/home-markup.test.mjs` verifica gli ID nell’HTML reale del sito e del widget, i riferimenti SVG e la sintassi degli script incorporati; riproduceva il difetto prima della correzione. Corretto anche il prefisso della fotografia incorporata (`./data:` non era un URL valido). Risorsa widget v7 e URL degli asset aggiornati per invalidare le copie precedenti.
+
+I test precedenti simulavano elementi DOM senza leggere l’HTML e non rilevavano la collisione. I test locali non attestano ancora il ciclo completo nel client ChatGPT né l’audio su iPad. Il sito esterno continua a trasferire la richiesta al plugin: non dispone di un modello IA autonomo. Rollback: ripubblicare la versione Sites precedente.
