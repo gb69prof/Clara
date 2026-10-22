@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7f4">
+  <meta name="description" content="Clara, la tua scrivania didattica. Parla, scrivi e dai spazio alle tue idee.">
+  <title>Clara — La tua scrivania didattica</title>
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="module" src="./js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#request">Vai alla scrittura</a>
+  <svg class="icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></symbol>
+      <symbol id="sound" viewBox="0 0 24 24"><path d="m11 4-6 5H2v6h3l6 5zM15 8a6 6 0 0 1 0 8M18 4a11 11 0 0 1 0 16"/></symbol>
+      <symbol id="document" viewBox="0 0 24 24"><path d="M14 2H5v20h14V7zM14 2v6h5M8 12h8M8 16h8"/></symbol>
+      <symbol id="send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9L2 9zM11 13 22 2"/></symbol>
+      <symbol id="book" viewBox="0 0 24 24"><path d="M12 5C8 2 4 2 2 3v17c3-2 7-1 10 1 3-2 7-3 10-1V3c-2-1-6-1-10 2v16"/></symbol>
+      <symbol id="people" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M6 21v-3a6 6 0 0 1 12 0v3zM3 4a3 3 0 0 1 0 6M21 4a3 3 0 0 0 0 6M4 13a5 5 0 0 0-3 5v2h2M20 13a5 5 0 0 1 3 5v2h-2"/></symbol>
+      <symbol id="arrow" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="brand">
+    <h1>Clara</h1>
+    <p>La tua scrivania didattica</p>
+  </header>
+  <main>
+    <div class="portrait">
+      <!-- The viewport crops only the photograph; all controls below are real HTML. -->
+      <svg viewBox="0 105 1448 365" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="portrait-title">
+        <title id="portrait-title">Clara, sorridente alla sua scrivania in una stanza luminosa</title>
+        <image href="./assets/clara-reference.png" width="1448" height="1086"/>
+      </svg>
+    </div>
+
+    <section class="interaction" aria-label="Parla o scrivi a Clara">
+      <button class="voice-button" id="voice" type="button" aria-describedby="voice-help" aria-pressed="false">
+        <span class="microphone"><svg class="icon"><use href="#mic"/></svg></span>
+        <span class="voice-copy"><span class="voice-title" id="voice-title">Parla con Clara</span><span id="voice-help">Tocca per parlare. Clara ti risponde a voce.</span></span>
+      </button>
+
+      <form id="composer" class="composer">
+        <label class="section-title" for="request">Scrivi a Clara</label>
+        <textarea id="request" name="request" rows="3" maxlength="4000" required placeholder="Scrivi qui la tua richiesta..."></textarea>
+        <div class="composer-actions">
+          <fieldset class="response-mode">
+            <legend>Risposta</legend>
+            <div class="mode-options">
+              <label><input type="radio" name="responseMode" value="voice" checked><span><svg class="icon"><use href="#sound"/></svg>Vivavoce</span></label>
+              <label><input type="radio" name="responseMode" value="text"><span><svg class="icon"><use href="#document"/></svg>Scritta</span></label>
+            </div>
+          </fieldset>
+          <button class="send-button" id="send" type="submit"><svg class="icon"><use href="#send"/></svg><span>Invia</span></button>
+        </div>
+      </form>
+      <p class="status" id="status" role="status" aria-live="polite"></p>
+      <section class="reply" id="reply" aria-labelledby="reply-title" hidden>
+        <div class="reply-heading"><h2 id="reply-title">Clara</h2><button type="button" class="text-button" id="play-reply" hidden>Ascolta risposta</button></div>
+        <p id="reply-text"></p>
+      </section>
+    </section>
+
+    <nav class="shortcuts" aria-label="La tua scrivania">
+      <button class="shortcut" type="button" data-area="lessons"><span class="shortcut-icon"><svg class="icon"><use href="#book"/></svg></span><span><strong>Lezioni</strong><small>Idee, attività e percorsi</small></span><svg class="icon chevron"><use href="#arrow"/></svg></button>
+      <button class="shortcut" type="button" data-area="materials"><span class="shortcut-icon"><svg class="icon"><use href="#document"/></svg></span><span><strong>Materiali</strong><small>Testi, schede e risorse</small></span><svg class="icon chevron"><use href="#arrow"/></svg></button>
+      <button class="shortcut" type="button" data-area="projects"><span class="shortcut-icon"><svg class="icon"><use href="#people"/></svg></span><span><strong>Progetti</strong><small>Spunti e pianificazione</small></span><svg class="icon chevron"><use href="#arrow"/></svg></button>
+    </nav>
+    <p class="preview-note" id="preview-note">Anteprima interattiva · Risposte dimostrative, servizio Clara da collegare.</p>
+    <p class="privacy-note">Il microfono si attiva solo al tuo tocco. La dettatura può usare i servizi del browser.</p>
+    <noscript><p class="no-script">Attiva JavaScript per scrivere a Clara e usare i comandi vocali.</p></noscript>
+  </main>
+
+  <dialog id="area-dialog" aria-labelledby="area-title" aria-describedby="area-description">
+    <button id="close-dialog" class="dialog-close" type="button" aria-label="Chiudi">×</button>
+    <p class="eyebrow">La tua scrivania</p><h2 id="area-title"></h2><p id="area-description"></p>
+    <p class="area-note">Questa area è pronta per essere collegata al progetto Clara. Qui non sono ancora presenti contenuti salvati.</p>
+    <button id="area-prompt" class="send-button" type="button">Scriviamolo insieme</button>
+  </dialog>
+</body>
+</html>
