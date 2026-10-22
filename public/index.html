@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f8fc">
+  <meta name="description" content="Clara, la scrivania didattica di gbprof. Archivio privato, progetti didattici e lavori programmati.">
+  <title>Clara — La tua scrivania didattica</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=9"><script defer src="bridge.js?v=9"></script><script defer src="app.js?v=9"></script><script defer src="home.js?v=9"></script>
+</head>
+<body class="home-mode">
+<a class="skip" href="#main">Vai al contenuto</a>
+<div id="scrim" class="scrim" hidden></div>
+<aside class="sidebar" id="sidebar" aria-label="Spazio Clara">
+  <a class="brand" href="#scrivania" aria-label="Clara, scrivania"><span class="brand-mark clara-brand"><img src="assets/clara.webp" alt="" width="46" height="46"></span><span>clara<span class="brand-sub">IL SAPERE PRENDE FORMA</span></span></a>
+  <div class="workspace"><span class="workspace-dot"></span> Il mio spazio didattico <span class="tiny">PRIVATO</span></div>
+  <p class="nav-label">LA TUA SCRIVANIA</p><nav id="navigation" aria-label="Navigazione principale"></nav>
+  <div class="sidebar-bottom">
+    <div class="clara-note"><span class="little-star">✧</span><strong>Un pensiero, una lezione.</strong><p>Raccogli le idee. Costruisci percorsi.<br>Conserva il filo del lavoro.</p><button class="text-btn" data-action="guide">Cosa so fare <span>→</span></button></div>
+    <button class="connections-link" data-action="integrations"><span data-icon="link"></span> Le tue connessioni <span class="connection-dot"></span></button>
+    <div class="profile"><span class="avatar">GB</span><div><strong>Gianfranco Barbone</strong><span>gbprof · docente</span></div></div>
+  </div>
+</aside>
+<div class="app-shell">
+  <header class="topbar">
+    <button class="icon-btn menu-btn" id="menuToggle" aria-label="Apri il menu" aria-controls="sidebar" aria-expanded="false"><span data-icon="menu"></span></button>
+    <div class="breadcrumb">Il mio spazio <span>/</span> <strong id="crumb">Scrivania</strong></div>
+    <button class="search-button" data-action="search"><span data-icon="search"></span><span>Cerca nel tuo spazio</span><kbd>⌕</kbd></button>
+    <button class="clara-call" data-action="goto" data-view="scrivania" aria-label="Apri la conversazione di Clara"><img src="assets/clara.webp" alt="" width="28" height="28"><span>Scrivi a Clara</span><span class="call-mic" data-icon="mic"></span></button>
+    <button class="icon-btn" data-action="guide" aria-label="Guida e funzioni di Clara"><span data-icon="help"></span></button>
+    <button class="sync-chip" id="syncStatus" data-action="sync">Caricamento…</button><span class="top-avatar" aria-hidden="true">GB</span>
+  </header>
+  <div class="demo-bar"><span class="demo-pill">PRIVATO</span><span>Archivio privato sul server · materiali scolastici dimostrativi · strumenti esterni disponibili nella chat secondo autorizzazioni</span><button data-action="guide">Come si usa? <span>↗</span></button></div>
+  <section id="claraHome" class="clara-home">
+  <a class="ch-skip-link" href="#request">Vai alla scrittura</a>
+  <svg class="ch-icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="ch-icon-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="13" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></symbol>
+      <symbol id="ch-icon-sound" viewBox="0 0 24 24"><path d="m11 4-6 5H2v6h3l6 5zM15 8a6 6 0 0 1 0 8M18 4a11 11 0 0 1 0 16"/></symbol>
+      <symbol id="ch-icon-document" viewBox="0 0 24 24"><path d="M14 2H5v20h14V7zM14 2v6h5M8 12h8M8 16h8"/></symbol>
+      <symbol id="ch-icon-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9L2 9zM11 13 22 2"/></symbol>
+      <symbol id="ch-icon-book" viewBox="0 0 24 24"><path d="M12 5C8 2 4 2 2 3v17c3-2 7-1 10 1 3-2 7-3 10-1V3c-2-1-6-1-10 2v16"/></symbol>
+      <symbol id="ch-icon-people" viewBox="0 0 24 24"><circle cx="12" cy="7" r="3"/><path d="M6 21v-3a6 6 0 0 1 12 0v3zM3 4a3 3 0 0 1 0 6M21 4a3 3 0 0 0 0 6M4 13a5 5 0 0 0-3 5v2h2M20 13a5 5 0 0 1 3 5v2h-2"/></symbol>
+      <symbol id="ch-icon-arrow" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    </defs>
+  </svg>
+
+  <header class="ch-home-brand">
+    <h1>Clara</h1>
+    <p>La tua scrivania didattica</p>
+  </header>
+  <div class="ch-home-content">
+    <div class="ch-portrait">
+      <!-- The viewport crops only the photograph; all controls below are real HTML. -->
+      <svg viewBox="0 105 1448 365" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="portrait-title">
+        <title id="portrait-title">Clara, sorridente alla sua scrivania in una stanza luminosa</title>
+        <image href="./assets/clara-reference.png" width="1448" height="1086"/>
+      </svg>
+    </div>
+
+    <section class="ch-interaction" aria-label="Scrivi o detta un messaggio a ChatGPT">
+      <p id="connection-status" class="ch-connection" role="status">Verifico il collegamento alla conversazione…</p>
+      <button class="ch-voice-button" id="voice" type="button" aria-describedby="voice-help" aria-pressed="false">
+        <span class="ch-microphone"><svg class="ch-icon"><use href="#ch-icon-mic"/></svg></span>
+        <span class="ch-voice-copy"><span class="ch-voice-title" id="voice-title">Detta il messaggio</span><span id="voice-help">Controlla il testo, poi invialo a ChatGPT.</span></span>
+      </button>
+
+      <form id="composer" class="ch-composer">
+        <label class="ch-section-title" for="request">Scrivi a Clara</label>
+        <textarea id="request" name="request" rows="3" maxlength="4000" required placeholder="Scrivi qui la tua richiesta..."></textarea>
+        <div class="ch-composer-actions">
+          <p class="ch-answer-location">Risposta scritta nella chat<br><small>Per parlare in tempo reale, usa Voice in ChatGPT.</small></p>
+          <button class="ch-send-button" id="send" type="submit" disabled><svg class="ch-icon"><use href="#ch-icon-send"/></svg><span>Invia a ChatGPT</span></button>
+        </div>
+      </form>
+      <p class="ch-status" id="status" role="status" aria-live="polite"></p>
+      <div class="ch-chat-actions">
+        <button id="copy-message" class="ch-text-button" type="button">Copia messaggio</button>
+        <button id="confirm-checked" class="ch-text-button" type="button" hidden>Ho controllato la chat</button>
+      </div>
+      <p id="standalone-help" class="ch-status" hidden>Apri la conversazione che vuoi continuare e chiedi «Apri Clara accanto a questa chat». Il sito non può accedere direttamente alla tua chat o alla tua memoria.</p>
+      <section id="conversation" class="ch-reply" aria-labelledby="conversation-title" hidden>
+        <h2 id="conversation-title">Messaggi inviati da questo pannello</h2>
+        <ol id="sent-messages" class="ch-sent" aria-live="polite"></ol>
+        <p class="ch-status">Le risposte e la cronologia completa restano nella conversazione ChatGPT. Questo pannello non le legge né le duplica.</p>
+      </section>
+      <section id="legacy-exchange" class="ch-reply" hidden>
+        <h2>Scambio della versione precedente</h2><p id="legacy-text"></p>
+      </section>
+    </section>
+
+    <nav class="ch-shortcuts" aria-label="La tua scrivania">
+      <button class="ch-shortcut" type="button" data-action="goto" data-view="lezioni"><span class="ch-shortcut-icon"><svg class="ch-icon"><use href="#ch-icon-book"/></svg></span><span><strong>Lezioni</strong><small>Idee, attività e percorsi</small></span><svg class="ch-icon ch-chevron"><use href="#ch-icon-arrow"/></svg></button>
+      <button class="ch-shortcut" type="button" data-action="goto" data-view="biblioteca"><span class="ch-shortcut-icon"><svg class="ch-icon"><use href="#ch-icon-document"/></svg></span><span><strong>Materiali</strong><small>Testi, schede e risorse</small></span><svg class="ch-icon ch-chevron"><use href="#ch-icon-arrow"/></svg></button>
+      <button class="ch-shortcut" type="button" data-action="goto" data-view="progetti"><span class="ch-shortcut-icon"><svg class="ch-icon"><use href="#ch-icon-people"/></svg></span><span><strong>Progetti</strong><small>Spunti e pianificazione</small></span><svg class="ch-icon ch-chevron"><use href="#ch-icon-arrow"/></svg></button>
+    </nav>
+    <p class="ch-preview-note" id="preview-note">Clara accompagna la tua conversazione ChatGPT</p>
+    <p class="ch-privacy-note">Il microfono si attiva solo al tuo tocco. La dettatura può usare i servizi del browser.</p>
+    <p class="ch-privacy-note">I nuovi messaggi vengono inviati a ChatGPT senza creare un secondo archivio di conversazioni.</p>
+    <noscript><p class="ch-no-script">Attiva JavaScript per scrivere a Clara e usare i comandi vocali.</p></noscript>
+  </div>
+
+</section>
+  <main id="main" tabindex="-1"></main>
+  <footer><span>Clara <span class="footer-star">✧</span> Il tuo spazio per insegnare.</span><span id="save-status">Caricamento dell’archivio privato…</span></footer>
+</div>
+<dialog id="modal" aria-labelledby="modalTitle"><div class="modal-head"><div><span class="eyebrow" id="modalEyebrow">CLARA · SPAZIO PRIVATO</span><h2 id="modalTitle"></h2></div><button class="icon-btn" data-action="close" aria-label="Chiudi finestra"><span data-icon="x"></span></button></div><div id="modalBody"></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<article id="printSheet" class="print-sheet"></article>
+</body>
+</html>

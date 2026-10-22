@@ -1,0 +1,1 @@
+export function GET(){return Response.json({name:'Clara',version:'9.0.0',storage:'server',conversation:'native-host-message',replyLocation:'chatgpt-conversation',conversationCopy:false,nativeVoiceBridge:false,engine:'scheduled-chatgpt-and-guided-templates',agentInstructions:'/api/agent/instructions',externalIntegrations:false});}
