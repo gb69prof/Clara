@@ -29,3 +29,13 @@ Riconvertire Clara da prototipo dimostrativo a esecutrice di progetti con contin
 Conservare l'identità del Site originale e la sua relazione col plugin; non sostituirlo con una seconda Clara. Quando è accessibile l'editor originale: implementare reset amministrativo atomico, persistenza dei checkpoint, integrazioni di sviluppo e anteprima; poi eseguire i 10 test di accettazione prima di dichiarare la nuova versione pronta.
 
 **Avvertenza di distribuzione:** questo REPORT.md resta nel repository e non deve essere esposto da gbprof.it.
+
+
+## Verifica nella successiva sessione Work — 11 novembre 2026
+- La scrivania originale risulta attiva alla versione Sites 10; è stata individuata la cronologia delle versioni 1–10, utile a un eventuale ripristino del codice. Questo non equivale a un backup o ripristino verificato dei dati D1.
+- Il database D1 ha binding `DB` e tabella `clara_workspace`; la riga dello spazio privato contiene dati dei progetti. La lettura restituita è troncata: non è una verifica completa di tutti i contenuti.
+- Gli strumenti di Clara confermano sei progetti annullati, zero in coda e zero attivi; la coda restituisce ancora tre vecchie consegne. Non è avvenuta alcuna cancellazione fisica.
+- Confermata una sola automazione collegata al Site, abilitata ogni ora; la registrazione dell'ultima esecuzione non dimostra la riuscita del ciclo di produzione richiesto.
+- Ottenuto l'accesso temporaneo al repository sorgente del Site tramite Sites, ma l'apertura del sorgente dal runtime Work è fallita per errore di rete `getaddrinfo() thread failed to start`. L'alternativa attraverso il browser Windows non è stata disponibile perché l'applicazione ha interrotto Computer Use: manca il supporto all'applicazione delle regole sugli URL per quel browser.
+- Non sono stati creati incarichi di test: senza reset disponibile non sarebbe possibile assicurare la pulizia richiesta. Non sono stati modificati codice, database, plugin o applicazione, né pubblicato nulla su gbprof.it. Non esistono nuovi test end-to-end superati in questa sessione.
+- Passo necessario: riprendere il lavoro in un ambiente Work con accesso di rete al repository sorgente di Sites e browser supportato, quindi implementare reset e modifiche nel Site originale, collaudare e verificare il database e l'interfaccia. Nessuna approvazione aggiuntiva del docente è richiesta per le modifiche e il reset già autorizzati; la pubblicazione su gbprof.it rimane soggetta a consenso esplicito sulla versione esatta.
