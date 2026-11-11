@@ -1,6 +1,6 @@
 {
   "name": "clara-bis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "engines": {
     "node": ">=22.13.0"
@@ -13,7 +13,8 @@
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
     "db:generate": "drizzle-kit generate",
     "test": "node scripts/generate-ui.mjs && node --test tests/*.test.cjs tests/*.test.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "local": "node scripts/local-server.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

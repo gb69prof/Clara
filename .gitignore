@@ -1,4 +1,5 @@
 # Dependencies
+/data-local/
 /node_modules/
 /.pnp
 .pnp.*

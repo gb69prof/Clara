@@ -1,8 +1,8 @@
 # Clara bis
 
-La nuova scrivania privata dei progetti di gbprof. Archivio vuoto e indipendente dalla vecchia Clara; interfaccia e strumenti MCP dedicati. Codice 1.0.0.
+La nuova scrivania privata dei progetti di gbprof. Archivio vuoto e indipendente dalla vecchia Clara; interfaccia e strumenti MCP dedicati. Codice 1.0.1.
 
-**Stato:** implementazione locale, 20 test e build superati. Il Site è registrato ma non ancora pubblicato: questo ambiente non raggiunge il repository sorgente gestito di Sites. Non è ancora pronta per sostituire la vecchia app.
+**Stato:** disponibile sul PC con archivio SQLite persistente. 24 test automatici superati. La build della versione Sites è verificata separatamente. Il Site è registrato ma non ancora pubblicato: questo ambiente non raggiunge il repository sorgente gestito di Sites. Non è ancora pronta per sostituire la vecchia app.
 
 ## Flusso
 1. Definisci il progetto con Libera: obiettivo, fonti, ambito e criteri.
@@ -10,6 +10,11 @@ La nuova scrivania privata dei progetti di gbprof. Archivio vuoto e indipendente
 3. Clara conserva risultati reali, checkpoint e il prossimo passo. La prosecuzione automatica richiede la schedulazione collegata e verificata; attualmente è disattivata.
 4. Rivedi le consegne e la relativa anteprima Sites. Ogni versione conserva file, hash, commit, verifiche e limiti.
 5. Approva una versione. Per gbprof.it serve un ulteriore consenso sulla versione esatta e sulla destinazione; una nuova versione invalida i consensi precedenti.
+
+## Uso sul PC
+Aprire `Apri-Clara-bis.cmd` e tenere aperta la finestra; poi visitare http://127.0.0.1:4177/. Richiede solo Node 22.13+, senza installazione di pacchetti aggiuntivi. Gli incarichi e le note sono salvati in `data-local/workspace.sqlite`, escluso da Git. Questa versione non si sincronizza con il Site.
+
+Dal progetto scegliere **Lavora nella conversazione** per copiare il messaggio da incollare nella conversazione Work sul PC. L’assistente può leggere l’incarico e registrare checkpoint e consegne con `scripts/local-project.mjs`; approvazione e consensi restano nella scrivania. Non è una esecuzione automatica in background.
 
 ## Sviluppo
 Node 22.13+ (test eseguiti con Node 24.14.1), pnpm 11.25.0 e lockfile incluso.

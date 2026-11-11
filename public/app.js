@@ -38,6 +38,7 @@
   function empty() { return `<div class="panel empty"><div class="empty-symbol" aria-hidden="true">+</div><h3>Il tuo prossimo progetto comincia qui.</h3><p>Un obiettivo, i materiali di partenza e il risultato che vuoi vedere.</p>${button('new','Crea il primo incarico')}</div>`; }
   function queueNotice() {
     const a=snapshot.state.agent;
+    if(snapshot.capabilities?.localMode) return `<div class="queue-note"><span class="status-dot" aria-hidden="true"></span><div><strong>Clara bis sul tuo PC</strong><p>Puoi creare e conservare incarichi e note. Per realizzare un progetto, aprilo e scegli “Lavora nella conversazione”. La prosecuzione automatica non è ancora collegata.</p></div></div>`;
     return `<div class="queue-note"><span class="status-dot ${a?.enabled?'on':''}" aria-hidden="true"></span><div><strong>${a?.enabled?'Esecuzione programmata collegata':'Esecuzione programmata da attivare'}</strong><p>${a?.enabled?esc(a.cadence || 'Controlli periodici')+' · Ultimo controllo: '+esc(a.lastCheckedAt?date(a.lastCheckedAt):'non ancora registrato'):'Gli incarichi restano salvati. La prosecuzione automatica sarà disponibile dopo il collaudo online.'}</p></div></div>`;
   }
   function home() {
@@ -93,7 +94,14 @@
     if(name==='new'||name==='edit') return projectForm(id);
     if(name==='enqueue'||name==='pause'||name==='resume'||name==='revoke_publication') { await command({op:name,projectId:id}); return toast('Progetto aggiornato.'); }
     if(name==='check-delivery') { deliveryUnknown=false; return render(); }
-    if(name==='chat-project') return sendMessage(`Lavora nell'app Clara bis, progetto ${p.id}. Leggi clarabis_get_project e il contratto. Realizza l'incarico con gli strumenti disponibili, conserva checkpoint strutturati con clarabis_save_checkpoint e consegne reali con clarabis_save_artifact. Se manca un accesso, dichiara il blocco. Lascia a me l'approvazione della versione e qualsiasi autorizzazione a pubblicare su gbprof.it.`);
+    if(name==='chat-project') {
+      if(snapshot.capabilities?.localMode){
+        const prompt=`Riprendi l'incarico locale di Clara bis “${p.title}”, ID ${p.id}. Cartella sul PC: ${snapshot.localProjectDirectory}. Leggi AGENTS.md, REPORT.md e il progetto nell'archivio locale usando node scripts/local-project.mjs read ${p.id}. Realizza il contratto con gli strumenti disponibili e conserva checkpoint e consegne reali nello stesso archivio con il comando apply del medesimo script. Lascio a me l'approvazione della versione e qualsiasi autorizzazione a pubblicare su gbprof.it. Non modificare la vecchia Clara. Dichiara accessi o verifiche mancanti.`;
+        return modal('Continua il progetto con Libera',`<p>Copia questo messaggio nella nostra conversazione di lavoro sul PC. L’incarico resterà collegato al suo archivio locale.</p><textarea id="handoffPrompt" class="handoff-prompt" readonly rows="8">${esc(prompt)}</textarea><div class="form-actions">${button('copy-handoff','Copia messaggio')}</div>`);
+      }
+      return sendMessage(`Lavora nell'app Clara bis, progetto ${p.id}. Leggi clarabis_get_project e il contratto. Realizza l'incarico con gli strumenti disponibili, conserva checkpoint strutturati con clarabis_save_checkpoint e consegne reali con clarabis_save_artifact. Se manca un accesso, dichiara il blocco. Lascia a me l'approvazione della versione e qualsiasi autorizzazione a pubblicare su gbprof.it.`);
+    }
+    if(name==='copy-handoff') { const area=$('handoffPrompt'); try{await navigator.clipboard.writeText(area.value);toast('Messaggio copiato. Incollalo nella nostra conversazione.');}catch{area.focus();area.select();toast('Testo selezionato: premi Ctrl+C per copiarlo.');} return; }
     if(name==='approve-confirm') return modal('Approva questa versione',`<p>${esc(p.artifacts[0].title)}</p><p>Versione <code>${esc(p.artifacts[0].id)}</code></p><p>Confermi di aver esaminato questa consegna? L’approvazione non autorizza la pubblicazione.</p>${button('approve-now','Conferma approvazione',id)}`,{versionId:p.artifacts[0].id});
     if(name==='approve-now') { const result=await command({op:'approve',projectId:id,versionId:modalContext.versionId,confirm:'APPROVE_VERSION'}); if(result) close(); return; }
     if(name==='revise') return modal('Che cosa va rivisto?',`<form id="revisionForm">${field('note','Indicazioni per Clara','','textarea')}<button class="button primary" type="submit">Salva richiesta di revisione</button></form>`,{id});

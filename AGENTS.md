@@ -11,3 +11,6 @@ Applicazione privata indipendente dalla vecchia Clara. Non migrare dati, non mod
 - Conservare REPORT.md nel repository vicino al prodotto; escluderlo dagli asset pubblicati. Non inserire credenziali nei file, nei log, negli argomenti dei comandi o nel frontend.
 - Verifiche: npm test, npm run typecheck, helper ufficiale Sites build-site.mjs, collaudo visivo e poi test dell'archivio e del plugin pubblicati. Documentare separatamente prove locali e live.
 - Per riprendere leggere REPORT.md e CONTRATTO.md. Non ricreare il Site: esiste già e attende la prima pubblicazione.
+
+## Prova locale
+Il proprietario può usare http://127.0.0.1:4177/ avviando Apri-Clara-bis.cmd. Dati in data-local/workspace.sqlite, esclusi da Git. Leggere un incarico con `node scripts/local-project.mjs read ID`; salvare checkpoint o consegna con `node scripts/local-project.mjs apply file-comando.json`. Lo script accetta solo checkpoint e save_artifact; non sostituisce i consensi del docente. Nessuna sincronizzazione col Site e nessuna esecuzione automatica attiva.

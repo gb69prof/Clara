@@ -8,3 +8,5 @@
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
 
 .text-button{font:inherit;color:inherit;text-align:left;border:0;padding:0;background:none;cursor:pointer}.text-button:hover{text-decoration:underline}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}.status-dot{width:10px;height:10px;border-radius:50%;background:#ac9770;flex:none}.status-dot.on{background:#40846a}.admin-actions{display:flex;justify-content:space-between;align-items:center;gap:1rem}.paper{white-space:pre-wrap;overflow-wrap:anywhere}code{overflow-wrap:anywhere}.hero-copy .actions .button:first-child{background:var(--green);color:white}
+
+.handoff-prompt{display:block;width:100%;padding:14px;border:1px solid var(--line);border-radius:10px;resize:vertical;background:white;color:var(--ink)}
