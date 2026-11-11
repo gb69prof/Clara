@@ -1,5 +1,8 @@
 # Clara bis — contratto di realizzazione
 
+## Integrazione del 11 novembre 2026 — esecuzione dalla scrivania locale
+Il proprietario richiede che Clara acquisisca e svolga direttamente gli incarichi. Collegare quindi la coda locale a un'esecuzione Work periodica, mantenendo separato il salvataggio dall'affidamento. Il PC deve essere accessibile e collegato a Work. Una consegna locale verificabile può essere presentata per revisione con file scaricabili e hash; l'assenza dell'anteprima Sites resta dichiarata e impedisce di abilitarne la pubblicazione. Il collaudo automatico completo richiede una corsa periodica effettivamente osservata, non soltanto la creazione dell'automazione.
+
 ## Obiettivo
 Una nuova esecutrice privata di progetti per gbprof: con Libera si pensa e si definisce il lavoro; Clara conserva l'incarico, lo realizza con gli strumenti disponibili, salva checkpoint, consegna file e un'anteprima Sites per la revisione del docente.
 

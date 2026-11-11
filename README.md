@@ -1,5 +1,10 @@
 # Clara bis
 
+## Stato corrente — codice 1.0.2
+La coda locale dispone ora del collegamento a Work: «Affida a Clara», acquisizione esclusiva, checkpoint, ripresa e consegne scaricabili con copie e hash della versione. Un'automazione distinta, «Clara bis — esegui gli incarichi», controlla periodicamente la coda con il PC accessibile. La creazione dell'automazione e la prova locale sono riuscite; la prima esecuzione periodica indipendente deve ancora essere osservata. Non è un servizio continuo né una partenza immediata al clic.
+
+28 test automatici superati. Le consegne locali prive di anteprima Sites restano esplicitamente incomplete per quel requisito e non autorizzano la pubblicazione. Per caricare il nuovo backend, chiudere la precedente istanza del server con Ctrl+C e riaprire Apri-Clara-bis.cmd (oppure lo stesso comando Node usato per avviarla). Dati e incarichi restano nello stesso database. ESECUTORE-LOCALE.md documenta il protocollo; i paragrafi successivi descrivono anche lo stato precedente.
+
 La nuova scrivania privata dei progetti di gbprof. Archivio vuoto e indipendente dalla vecchia Clara; interfaccia e strumenti MCP dedicati. Codice 1.0.1.
 
 **Stato:** disponibile sul PC con archivio SQLite persistente. 24 test automatici superati. La build della versione Sites è verificata separatamente. Il Site è registrato ma non ancora pubblicato: questo ambiente non raggiunge il repository sorgente gestito di Sites. Non è ancora pronta per sostituire la vecchia app.

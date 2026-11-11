@@ -15,5 +15,5 @@ const server=createServer(async(req,res)=>{
   }catch{res.writeHead(500,{'Content-Type':'text/plain'});res.end('Richiesta non disponibile.');}
 });
 server.on('error',error=>{console.error(error.code==='EADDRINUSE'?`La porta ${port} è già occupata. Apri http://127.0.0.1:${port}/ oppure chiudi l'altra istanza.`:error.message);db.close();process.exitCode=1;});
-server.listen(port,'127.0.0.1',()=>{console.log(`Clara bis pronta sul PC: http://127.0.0.1:${port}/`);console.log(`Archivio persistente: ${localDatabasePath}`);console.log('Chiudi questa finestra o premi Ctrl+C per arrestare. La prosecuzione IA automatica non è attiva.');});
+server.listen(port,'127.0.0.1',()=>{console.log(`Clara bis pronta sul PC: http://127.0.0.1:${port}/`);console.log(`Archivio persistente: ${localDatabasePath}`);console.log('Chiudi questa finestra o premi Ctrl+C per arrestare. Lo stato dell’esecutore programmato è indicato nella scrivania.');});
 for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>server.close(()=>{db.close();process.exit(0);}));

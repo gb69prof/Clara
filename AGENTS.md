@@ -1,5 +1,8 @@
 # Clara bis
 
+## Aggiornamento locale 1.0.2
+La coda locale è collegabile all'automazione Work «Clara bis — esegui gli incarichi». Leggere ESECUTORE-LOCALE.md per l'esecuzione. `local-agent.mjs` gestisce claim, checkpoint, lease, continuazione e consegna di file. Il vecchio passaggio manuale `local-project.mjs` resta un'opzione, non il motore automatico. Non confondere la configurazione o una prova in questa conversazione con una corsa periodica osservata. L'accesso del processo programmato al PC deve essere verificato e riportato. La consegna locale resta separata dalla consegna completa con anteprima Sites; non rimuovere le relative verifiche di pubblicazione.
+
 Applicazione privata indipendente dalla vecchia Clara. Non migrare dati, non modificare né cancellare il Site precedente. La sua eventuale rimozione segue il collaudo online di Clara bis e la decisione del proprietario.
 
 - Repository di lavoro: gb69prof/Clara, branch separato feat/clara-bis. Non confondere il backup GitHub con il repository sorgente gestito da Sites.

@@ -1,5 +1,23 @@
 # Clara bis — autonomia verificabile
 
+## Aggiornamento 1.0.2 — 11 novembre 2026
+
+**Obiettivo:** assegnare ed eseguire gli incarichi dalla scrivania locale attraverso Clara, evitando il passaggio manuale del testo alla conversazione.
+
+**Fatto:** aggiunto `scripts/local-agent.mjs` per coda, claim esclusivo, lease, checkpoint e continuazione; abilitati enqueue/resume nell'API locale solo quando l'esecutore è configurato. Consegne locali: verifica dei file nella cartella del progetto, snapshot della versione, hash SHA-256, download e REPORT separato. Una consegna locale senza anteprima Sites resta al 95% e non può ottenere autorizzazione alla pubblicazione. L'interfaccia distingue configurazione e primo accesso periodico registrato.
+
+**Collegamento effettivo:** creata l'automazione Work separata «Clara bis — esegui gli incarichi», con controllo ogni ora. L'avvio immediato dello strumento ha restituito un'esecuzione nella conversazione corrente, non una corsa indipendente: eseguite realmente probe e lettura della coda sul database locale. Collegamento configurato e incarico già presente affidato alla coda su richiesta del proprietario. Nessun contenuto dell'incarico è stato prodotto in questa prova.
+
+**Prove:** 28 test automatici superati: persistenza, ripresa con nuovo runId, doppio claim escluso, idempotenza, annullamento/pausa, percorsi confinati, file mancanti, hash dopo modifica, report non esposto, versioni e blocco della pubblicazione. I test usano archivi isolati; nessun incarico dimostrativo nell'archivio del proprietario.
+
+TypeScript superato sulla copia di collaudo isolata con dipendenze già installate. Per questa revisione il nuovo tentativo di build ufficiale Sites si ferma prima della compilazione: pnpm non presente nel PATH iniziale; con lo shim disponibile Corepack tenta il recupero di pnpm e incontra `ENOTFOUND registry.npmjs.org`. Non si riutilizza la vecchia build come prova della versione 1.0.2. Il server locale Node non dipende da pnpm e i relativi test sono eseguiti direttamente.
+
+**Limiti:** la prima corsa periodica non è ancora stata osservata. Il servizio restituisce ambiente ereditato senza dettagli del dispositivo: non è una prova di raggiungibilità futura del PC. Il backend locale già in memoria deve essere riavviato per caricare i nuovi endpoint. Nessun collaudo visuale/live nuovo dichiarato. Pubblicazione privata Sites ancora da completare; nessun deploy su gbprof.it. La vecchia Clara, i suoi dati e la sua automazione restano intatti.
+
+**Alternativa verificata e non attivata:** Codex CLI installato e autenticato; prova read-only interrotta per accesso negato alle directory di sessione e mancato accesso di rete. Non cambiati permessi, configurazione globale, credenziali o sandbox per aggirare il blocco.
+
+**Fonti e decisioni:** codice locale, contratto, richiesta del proprietario, metadati effettivi degli strumenti Work. Scelta la coda periodica, dichiarandone la latenza; non attribuita un'esecuzione a un semplice badge. Prossimo riscontro: una vera corsa programmata che legga questo stesso archivio, acquisisca il lavoro e salvi un checkpoint o una consegna.
+
 Data: 11 novembre 2026. Stato: disponibile sul PC con archivio persistente; pubblicazione privata Sites e collaudo online ancora bloccati. Non sostituisce ancora Clara.
 
 ## Obiettivo e decisione
