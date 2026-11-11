@@ -61,3 +61,10 @@ Conservare l'identità del Site originale e la sua relazione col plugin; non sos
 - Aggiornati soltanto questo report e la descrizione del blocco nel contratto, sul branch della PR #3, attraverso il connettore GitHub; nessuna modifica a main.
 - Per riprendere serve un ambiente capace di leggere **e scrivere** il repository Git originale di Sites tramite il flusso supportato. Primo passo: nuova credenziale temporanea, apertura del sorgente originale, lettura del codice e delle regole locali; poi reset atomico e collaudo dei requisiti. Una copia di documentazione o il solo accesso alla scrivania non bastano.
 - La pubblicazione su gbprof.it resta vietata fino a un'autorizzazione riferita alla versione esatta. REPORT.md deve rimanere escluso dal pacchetto pubblico.
+
+
+## Correzione della ricognizione dei branch — 11 novembre 2026
+- Il docente ha eseguito nel proprio PowerShell `git ls-remote https://github.com/gb69prof/Clara.git HEAD` con successo: HEAD `0574a3665d2000c38ebcd94e8f247f2c1c9aed9a`. Questo verifica GitHub dal terminale del PC, non ancora il repository privato Sites.
+- **Correzione:** la precedente affermazione secondo cui il repository contiene soltanto documentazione era incompleta. Vale per main e per la PR #3, ma **la PR #2, branch `feat/clara-live-integration`, contiene il sorgente dell'app**, incluse interfaccia, API, persistenza D1, server MCP e test. La verifica precedente aveva omesso gli altri branch.
+- Sorgente GitHub identificato al commit `4d1c9442b4de00d6d911155e215676ce12ab1812`; `.openai/hosting.json` conferma l'identità del Site originale. La PR #2 documenta il commit Sites `b0b0bb23d806331fe30c18d3d39d87bc95358770` e la stessa versione 10 restituita da Sites. Il collegamento è documentato, non ancora verificato mediante confronto byte per byte col repository privato.
+- Il codice è leggibile dal connettore GitHub. Preparato il passaggio di clone manuale dal PC in una nuova cartella locale; clone non ancora osservato. Lo sviluppo può proseguire da questa copia, mantenendo il contratto della PR #3; la sincronizzazione finale con Sites resta da risolvere e verificare.

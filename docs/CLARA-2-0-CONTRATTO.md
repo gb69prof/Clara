@@ -5,7 +5,7 @@ Stato del documento: 11 novembre 2026 · sviluppo in branch · **non è un deplo
 - **Sito esistente:** `https://clara-scrivania-gbprof.gbprof.chatgpt.site`. Conservare identità, grafica e URL quando verrà aggiornato il codice del Site.
 - **App/plugin collegato:** `plugin_asdk_app_sites_99fcca34b9f48191be97bb7752c0ac6a`; la skill `clara-orchestratore` è stata aggiornata alla versione 2.0.0.
 - **Esecutore:** automazione ChatGPT `Automation_084ecea05bfc81918e81d6c68add1c3b`, controllo orario Europe/Rome. Un turno non implica lavoro ininterrotto.
-- **Repository:** `gb69prof/Clara` è la destinazione di sviluppo documentata. Oggi contiene regole e documentazione, non il codice sorgente del Site attivo. GitHub e Sites non risultano sincronizzati.
+- **Repository:** `gb69prof/Clara` è la destinazione di sviluppo. `main` e la PR #3 contengono documentazione; il sorgente dell'app è nel branch `feat/clara-live-integration` (PR #2), commit `4d1c9442b4de00d6d911155e215676ce12ab1812`. La PR #2 documenta il deploy della versione Sites 10; non esiste un deploy automatico verificato da GitHub a Sites.
 - **Pubblicazione finale:** repository del progetto didattico → gbprof.it, con controllo dell'esatta versione approvata.
 
 ## Decisione del docente
@@ -90,6 +90,8 @@ Ogni progetto ha codice e contenuti sotto controllo versione, con branch di svil
 10. **Sicurezza:** nessun token esposto nel browser, nessun dato personale scolastico nel repository pubblico, reset protetto da ruolo amministrativo.
 
 ## Blocco attuale di integrazione
-Verifica dell'11 novembre 2026 dal PC Windows: il connettore Sites riconosce il proprietario e rilascia la credenziale del repository originale, ma l'helper ufficiale di apertura fallisce con `getaddrinfo() thread failed to start`. Il browser integrato permette ora di aprire l'app privata e i progetti; questo accesso all'interfaccia non fornisce il sorgente del backend. Il connettore GitHub consente la manutenzione dei documenti della PR #3; il repository GitHub non contiene il codice dell'app.
+Il sorgente dell'app è stato individuato nel branch GitHub `feat/clara-live-integration` (PR #2), commit `4d1c9442b4de00d6d911155e215676ce12ab1812`. Il suo manifest conferma il Site originale e la PR #2 documenta il deploy della versione Sites 10. La precedente ricognizione aveva controllato solo main e la PR #3, producendo una conclusione incompleta, corretta nel REPORT.md. Il codice è ora leggibile tramite il connettore GitHub e può essere recuperato dal PC per proseguire lo sviluppo.
 
-Il Site originale è ancora alla versione 10 (commit sorgente dichiarato `b0b0bb23d806331fe30c18d3d39d87bc95358770`); API e interfaccia confermano sei schede annullate ancora conservate. Il reset fisico, l'aggiornamento dell'app e l'integrazione Sites → GitHub restano da implementare e collaudare sul sorgente originale. Autorizzazione all'aggiornamento e alla cancellazione definitiva già confermata dal docente; pubblicazione su gbprof.it consentita solo dopo consenso riferito alla versione esatta. Dettagli e riscontri nel REPORT.md. **Questo documento non è una release funzionale della nuova app.**
+L'apertura del repository privato di Sites dal runtime dell'assistente continua a fallire con `getaddrinfo() thread failed to start`; il docente ha invece verificato l'accesso Git a GitHub dal proprio PowerShell. La sincronizzazione finale della copia modificata col repository originale Sites deve ancora essere risolta e verificata. Il browser integrato consente l'accesso all'app privata, non al sorgente del backend.
+
+Il Site originale è ancora alla versione 10, con commit sorgente dichiarato `b0b0bb23d806331fe30c18d3d39d87bc95358770`. Sei incarichi risultano annullati ma non cancellati. Aggiornamento dell'app e reset definitivo sono già autorizzati; la pubblicazione su gbprof.it richiede consenso sulla versione esatta. **Questo documento non è una release funzionale della nuova app.**
