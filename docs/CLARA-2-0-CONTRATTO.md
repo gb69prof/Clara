@@ -1,11 +1,11 @@
 # Clara 2.0 — Contratto di produzione, persistenza e collaudo
-Stato del documento: 11 novembre 2026 · sviluppo in branch · **non è un deploy del Site**.
+Stato del documento: 11 novembre 2026 — codice implementato nella PR #3, test locali superati; **non è un deploy del Site né un reset live**.
 
 ## Identità dei componenti
 - **Sito esistente:** `https://clara-scrivania-gbprof.gbprof.chatgpt.site`. Conservare identità, grafica e URL quando verrà aggiornato il codice del Site.
 - **App/plugin collegato:** `plugin_asdk_app_sites_99fcca34b9f48191be97bb7752c0ac6a`; la skill `clara-orchestratore` è stata aggiornata alla versione 2.0.0.
 - **Esecutore:** automazione ChatGPT `Automation_084ecea05bfc81918e81d6c68add1c3b`, controllo orario Europe/Rome. Un turno non implica lavoro ininterrotto.
-- **Repository:** `gb69prof/Clara` è la destinazione di sviluppo. `main` e la PR #3 contengono documentazione; il sorgente dell'app è nel branch `feat/clara-live-integration` (PR #2), commit `4d1c9442b4de00d6d911155e215676ce12ab1812`. La PR #2 documenta il deploy della versione Sites 10; non esiste un deploy automatico verificato da GitHub a Sites.
+- **Repository:** `gb69prof/Clara`, PR #3 `feat/clara-2-esecutrice-persistente`. Il sorgente della PR #2 è stato integrato per continuare il contratto. Non esiste un deploy automatico verificato da GitHub a Sites.
 - **Pubblicazione finale:** repository del progetto didattico → gbprof.it, con controllo dell'esatta versione approvata.
 
 ## Decisione del docente
@@ -14,7 +14,7 @@ Libera + docente progettano contenuti e criteri; Clara realizza. Clara deve lavo
 ## Reset e nuova epoca
 Il giorno 11/11/2026 i **sei** incarichi preesistenti sono stati annullati nel servizio Clara; la coda pendente e quella attiva sono vuote. Le schede storiche e i relativi allegati NON sono stati cancellati, perché l'interfaccia tool attuale espone `cancel` ma non `delete_project` o `reset_projects`. Qualsiasi esecutore deve ignorare incarichi antecedenti a questo reset; nessuna ripresa automatica.
 
-### Requisito mancante nel Site (priorità zero)
+### Reset: implementato nel branch, da integrare nel Site
 Implementare un comando amministrativo `reset_all_projects` che:
 1. Richieda autenticazione di proprietario e conferma esplicita di reset.
 2. Mostri il numero di progetti, versioni, checkpoint e lavori da eliminare.
@@ -89,9 +89,11 @@ Ogni progetto ha codice e contenuti sotto controllo versione, con branch di svil
 9. **Report:** `REPORT.md` resta nel repository e non è accessibile dal sito pubblicato.
 10. **Sicurezza:** nessun token esposto nel browser, nessun dato personale scolastico nel repository pubblico, reset protetto da ruolo amministrativo.
 
-## Blocco attuale di integrazione
-Il sorgente dell'app è stato individuato nel branch GitHub `feat/clara-live-integration` (PR #2), commit `4d1c9442b4de00d6d911155e215676ce12ab1812`. Il suo manifest conferma il Site originale e la PR #2 documenta il deploy della versione Sites 10. La precedente ricognizione aveva controllato solo main e la PR #3, producendo una conclusione incompleta, corretta nel REPORT.md. Il codice è ora leggibile tramite il connettore GitHub e può essere recuperato dal PC per proseguire lo sviluppo.
+## Stato di implementazione e integrazione
+Il clone manuale del docente è riuscito; il codice della PR #2 è stato integrato nel branch della PR #3. Reset, epoche, contratti, checkpoint, rinnovo lease, manifest, approvazioni esatte, preflight e ricevute sono implementati e coperti da 31 test locali. L’interfaccia aggiunge preview, confronto delle ultime due versioni e consensi separati.
 
-L'apertura del repository privato di Sites dal runtime dell'assistente continua a fallire con `getaddrinfo() thread failed to start`; il docente ha invece verificato l'accesso Git a GitHub dal proprio PowerShell. La sincronizzazione finale della copia modificata col repository originale Sites deve ancora essere risolta e verificata. Il browser integrato consente l'accesso all'app privata, non al sorgente del backend.
+Questa verifica non soddisfa ancora i test di accettazione end-to-end sul Site: servono dipendenze, build, controllo TypeScript, browser, aggiornamento privato, reset live e un ciclo produttivo reale in due corse. Le prove di pubblicazione sono simulate; nessun deploy su gbprof.it è autorizzato.
 
-Il Site originale è ancora alla versione 10, con commit sorgente dichiarato `b0b0bb23d806331fe30c18d3d39d87bc95358770`. Sei incarichi risultano annullati ma non cancellati. Aggiornamento dell'app e reset definitivo sono già autorizzati; la pubblicazione su gbprof.it richiede consenso sulla versione esatta. **Questo documento non è una release funzionale della nuova app.**
+Il runtime dell’assistente non raggiunge Git e npm, mentre il terminale del docente ha clonato GitHub. Anche la connessione loopback al server di prova locale è negata. L’helper ufficiale non ha aperto il repository Sites. Le istruzioni operative sono in `CLARA-2-0-RIPRESA.md` e i riscontri in `../REPORT.md`.
+
+Il Site originale resta alla versione 10 e allo stesso URL, con sei incarichi annullati ma non cancellati. La sua provenienza dalla copia GitHub è documentata dalla PR #2, non ancora confrontata byte per byte. L’aggiornamento privato e il reset definitivo sono già autorizzati. **Non dichiarare Clara 2.0 completa finché non siano verificati i requisiti sul servizio reale.**
