@@ -3,6 +3,8 @@
 Questa copia conserva l’identità del Site originale. GitHub non pubblica automaticamente su Sites o gbprof.it.
 
 ## PC Windows
+Dipendenze installate dal docente; TypeScript e build verificati con successo dall’assistente l’11 novembre 2026. Non ripetere l’installazione su questa copia invariata. I comandi seguenti servono per nuove copie o dipendenze cambiate.
+
 Dal PowerShell normale del docente:
 
 ```powershell
@@ -22,6 +24,8 @@ npm run dev
 Il dev server usa la porta 5173. Usare soltanto il database locale di prova: non copiare dati privati né credenziali di produzione. Il comando install:ci Linux preesistente richiede Bash; su Windows usare Corepack.
 
 ## Integrazione del Site
+Blocco attuale: il Git del runtime Work non raggiunge il repository privato Sites, anche con credenziale nuova. Serve una sessione Work con accesso di rete a quel repository; i comandi di installazione nel PowerShell del docente non risolvono questo passaggio. Non stampare né passare al docente token temporanei.
+
 1. Verificare con Sites che appgprj_6acb4747a00881919a0f293cbce0b739 sia ancora privato del proprietario.
 2. Ottenere una credenziale temporanea; passarla all’helper ufficiale tramite stdin senza stamparla o scriverla su disco. Aprire il Git originale in un checkout distinto.
 3. Confrontare la base con feat/clara-live-integration e integrare la PR #3 senza sovrascrivere modifiche concorrenti. Conservare manifest, binding D1 e identità del plugin.

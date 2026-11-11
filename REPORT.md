@@ -18,8 +18,8 @@ Aggiornare la Clara privata originale come esecutrice di progetti, con ripresa t
 - Suite Node: **31 test superati**. Comprende persistenza reale su SQLite riaperto dopo chiusura, concorrenza, lease scadute, idempotenza, reset, invalidazione delle approvazioni, ricevute di pubblicazione, esclusione del report e DOM simulato dell’interfaccia.
 - Le richieste HTTP nei test di pubblicazione usano risposte simulate: **nessun deploy reale** e nessuna richiesta a gbprof.it per questi test.
 - Le prove dell’interfaccia verificano comandi e markup; non equivalgono a collaudo visivo. Il server locale di prova è partito, ma il collegamento dal terminale è negato (EACCES su loopback) e il browser integrato ha restituito timeout. Server di prova arrestato; nessun dato aggiunto al Site.
-- Build e controllo TypeScript non eseguiti: dipendenze assenti. L’installer originale richiede Bash, non disponibile al processo; Corepack non raggiunge il registro npm (ENOTFOUND registry.npmjs.org). Il lockfile non è stato modificato.
-- get_site riconferma proprietà e accesso privato, versione Sites **10** e URL originale. Nuovo tentativo con l’helper ufficiale del sorgente terminato con errore; il Git di questo runtime continua a dare getaddrinfo() thread failed to start anche per GitHub. Il PowerShell del docente ha invece completato il clone.
+- **Dipendenze installate, TypeScript e build superati.** Il docente ha eseguito Corepack/pnpm 11.25.0 con lockfile congelato; l’assistente ha eseguito `npm run typecheck` (uscita 0) e la build ufficiale Sites (uscita 0, tutti i cinque passaggi Vinext completati). Verificati sintassi di `dist/server/index.js`, binding D1, manifest con identità originale e assenza di REPORT.md in dist. Nessuna versione delle dipendenze modificata. Per la build è stata usata la cache Corepack già installata sul PC; nessun download aggiuntivo.
+- get_site riconferma proprietà, accesso al solo proprietario, versione Sites **10** e URL originale. Con credenziale temporanea nuova, l’helper ufficiale ha ancora fallito l’accesso al Git originale con `getaddrinfo() thread failed to start`. Build riuscita e accesso al sorgente remoto sono passaggi distinti; il deploy non è stato avviato.
 
 ## Limiti effettivi
 - **Il Site originale non ha ancora ricevuto questo codice. I sei incarichi sono annullati ma non cancellati.** Ultima lettura live completa precedente: revisione 53, sei annullati, zero pending, zero active, tre consegne storiche.
@@ -29,7 +29,7 @@ Aggiornare la Clara privata originale come esecutrice di progetti, con ripresa t
 - La protezione amministrativa dipende dall’accesso Sites riservato al solo proprietario e dal canale di servizio autorizzato. Non condividere l’app senza introdurre ruoli e separazione degli archivi.
 
 ## Ripresa concreta
-1. Installare sul PC le dipendenze congelate nel lockfile; eseguire TypeScript, build e collaudo browser, correggendo eventuali errori.
+1. Dipendenze, TypeScript e build ora completati. Resta il collaudo browser in una sessione in cui sia raggiungibile il server di anteprima.
 2. Aprire il sorgente originale Sites con il flusso ufficiale in un ambiente con rete funzionante; confrontare la base con la copia GitHub, applicare questa modifica, costruire e aggiornare **lo stesso Site privato**.
 3. Rileggere API e interfaccia, verificare i sei incarichi, eseguire il reset già autorizzato e verificare zero progetti, versioni e lavori recuperabili.
 4. Aggiornare l’unica automazione esistente per leggere epoch, checkpoint e istruzioni v2. Collaudare una consegna reale e la ripresa in due corse. Conservare prove e aggiornare questo report.

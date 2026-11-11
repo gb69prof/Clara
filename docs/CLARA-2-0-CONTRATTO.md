@@ -92,7 +92,7 @@ Ogni progetto ha codice e contenuti sotto controllo versione, con branch di svil
 ## Stato di implementazione e integrazione
 Il clone manuale del docente è riuscito; il codice della PR #2 è stato integrato nel branch della PR #3. Reset, epoche, contratti, checkpoint, rinnovo lease, manifest, approvazioni esatte, preflight e ricevute sono implementati e coperti da 31 test locali. L’interfaccia aggiunge preview, confronto delle ultime due versioni e consensi separati.
 
-Questa verifica non soddisfa ancora i test di accettazione end-to-end sul Site: servono dipendenze, build, controllo TypeScript, browser, aggiornamento privato, reset live e un ciclo produttivo reale in due corse. Le prove di pubblicazione sono simulate; nessun deploy su gbprof.it è autorizzato.
+Questa verifica non soddisfa ancora i test di accettazione end-to-end sul Site: dipendenze, build e controllo TypeScript sono ora completati; restano browser, aggiornamento privato, reset live e un ciclo produttivo reale in due corse. Le prove di pubblicazione sono simulate; nessun deploy su gbprof.it è autorizzato.
 
 Il runtime dell’assistente non raggiunge Git e npm, mentre il terminale del docente ha clonato GitHub. Anche la connessione loopback al server di prova locale è negata. L’helper ufficiale non ha aperto il repository Sites. Le istruzioni operative sono in `CLARA-2-0-RIPRESA.md` e i riscontri in `../REPORT.md`.
 
