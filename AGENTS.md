@@ -1,27 +1,13 @@
-# AGENTS.md — Regole di sviluppo di Clara
+# Clara bis
 
-## Repository di destinazione
-Questo repository, `gb69prof/Clara`, è il riferimento per lo sviluppo del codice del progetto Clara.
+Applicazione privata indipendente dalla vecchia Clara. Non migrare dati, non modificare né cancellare il Site precedente. La sua eventuale rimozione segue il collaudo online di Clara bis e la decisione del proprietario.
 
-## Regole operative
-- Prima di intervenire, esaminare i file esistenti e preservare dati, identità, strumenti e UI utili.
-- Implementare effettivamente ciò che il docente chiede; non limitarsi a una proposta quando l'incarico è di sviluppo.
-- Usare un branch e una pull request per modifiche sostanziali, salvo indicazione esplicita differente.
-- Non dichiarare implementata o pubblicata una funzione finché non è stata verificata.
-- Non effettuare deploy automatici o aggiornamenti del plugin senza confermare che la pipeline e i permessi siano predisposti.
-- Non mettere in repository pubblico dati personali di studenti, credenziali o archivi scolastici riservati.
-- Le integrazioni con Google Drive, GitHub, calendario o altri servizi richiedono autorizzazioni e gestione sicura dei token.
-- Proteggere il lavoro esistente con piccoli cambiamenti verificabili e istruzioni di rollback.
-
-## Linee guida didattiche
-- Centralità della domanda generatrice e della comprensione prima del giudizio.
-- Contesto, fratture, processi, ricostruzione critica e conclusioni.
-- Interfacce chiare, accessibili e curate graficamente.
-- Distinguere fonti verificate, interpretazioni e contenuti generati.
-- Le attività e le bozze rimangono soggette alla revisione del docente.
-
-## Ambiti previsti
-Scrivania, classi, lezioni/laboratori, biblioteca, progetti PWA e VR/3D, scuola/calendario.
-
-## Connessione col plugin ChatGPT
-Il plugin Clara esistente e questo repository sono componenti distinti finché non viene implementata e collaudata la relativa integrazione. Non presumere che un commit aggiorni il plugin o l'app ospitata.
+- Repository di lavoro: gb69prof/Clara, branch separato feat/clara-bis. Non confondere il backup GitHub con il repository sorgente gestito da Sites.
+- Site: appgprj_6af4ac01ef9c819192a5e8e26f9a9bbd. Accesso riservato al proprietario; nessuna condivisione senza una nuova architettura di autorizzazione e isolamento per utente.
+- Dati: tabella clarabis_workspace, riga clarabis-owner. Seed senza incarichi, note, scadenze o esempi. Tutti gli strumenti MCP iniziano con clarabis_.
+- Ogni incarico richiede un contratto prima dell'affidamento: obiettivo, ambito, fonti, formato, destinazione dell'anteprima e criteri di accettazione.
+- Salvare checkpoint reali e risultati verificabili. Nessuna progressione simulata o bozza spacciata per prodotto finito. La continuazione richiede un esecutore programmato realmente collegato e collaudato.
+- Approvazione della consegna e autorizzazione a pubblicare sono consensi umani distinti, riferiti alla versione esatta. Una revisione o nuova consegna revoca i consensi precedenti. Non pubblicare su gbprof.it senza l'autorizzazione specifica.
+- Conservare REPORT.md nel repository vicino al prodotto; escluderlo dagli asset pubblicati. Non inserire credenziali nei file, nei log, negli argomenti dei comandi o nel frontend.
+- Verifiche: npm test, npm run typecheck, helper ufficiale Sites build-site.mjs, collaudo visivo e poi test dell'archivio e del plugin pubblicati. Documentare separatamente prove locali e live.
+- Per riprendere leggere REPORT.md e CONTRATTO.md. Non ricreare il Site: esiste già e attende la prima pubblicazione.
