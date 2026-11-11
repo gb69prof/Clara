@@ -39,3 +39,25 @@ Conservare l'identità del Site originale e la sua relazione col plugin; non sos
 - Ottenuto l'accesso temporaneo al repository sorgente del Site tramite Sites, ma l'apertura del sorgente dal runtime Work è fallita per errore di rete `getaddrinfo() thread failed to start`. L'alternativa attraverso il browser Windows non è stata disponibile perché l'applicazione ha interrotto Computer Use: manca il supporto all'applicazione delle regole sugli URL per quel browser.
 - Non sono stati creati incarichi di test: senza reset disponibile non sarebbe possibile assicurare la pulizia richiesta. Non sono stati modificati codice, database, plugin o applicazione, né pubblicato nulla su gbprof.it. Non esistono nuovi test end-to-end superati in questa sessione.
 - Passo necessario: riprendere il lavoro in un ambiente Work con accesso di rete al repository sorgente di Sites e browser supportato, quindi implementare reset e modifiche nel Site originale, collaudare e verificare il database e l'interfaccia. Nessuna approvazione aggiuntiva del docente è richiesta per le modifiche e il reset già autorizzati; la pubblicazione su gbprof.it rimane soggetta a consenso esplicito sulla versione esatta.
+
+## Ripresa dal PC Windows — 11 novembre 2026
+**Esito:** accesso all'app riuscito; accesso al sorgente ancora bloccato. Nessuna modifica al codice o ai dati del Site.
+
+| Controllo | Evidenza di questa sessione |
+| --- | --- |
+| PR di partenza | #3, branch `feat/clara-2-esecutrice-persistente`, commit `c0352c50aab34aa1999cdaa3ff775509609658f7`; letti AGENTS.md, contratto e report |
+| Repository GitHub | Accessibile tramite connettore; sia main sia il branch della PR contengono solo documentazione, nessun sorgente dell'app |
+| Repository originale Sites | Credenziale temporanea ottenuta; apertura con helper ufficiale `site-workflow.mjs` fallita con `getaddrinfo() thread failed to start` (uscita 1). Stesso errore per il clone di GitHub |
+| Identità dell'app | Site `appgprj_6acb4747a00881919a0f293cbce0b739`, proprietario confermato, accesso privato conservato; versione 10, sorgente dichiarato `b0b0bb23d806331fe30c18d3d39d87bc95358770` |
+| Archivio versione 10 | Metadati disponibili (78 file, 3.758.080 byte); nessun download del pacchetto disponibile attraverso i comandi Sites esposti. Non recuperato né ispezionato |
+| API Clara | Revisione 53: 6 progetti annullati, 0 pending, 0 active, 3 consegne storiche ancora restituite |
+| Interfaccia | Accesso con ChatGPT riuscito nel browser integrato; pagina Progetti ispezionata e dettaglio Foscolo aperto. Sei schede annullate ancora visibili; dettaglio con bozza, checkpoint e cronologia conservati. Nessun comando di eliminazione disponibile nelle viste ispezionate |
+| Automazione | Una sola automazione oraria collegata, abilitata; nessuna nuova esecuzione di produzione collaudata |
+
+### Decisioni, limiti e ripresa
+- La verifica del browser supera il precedente problema di accesso all'interfaccia, ma non fornisce un editor del backend e non sblocca Git.
+- Confermata l'autorizzazione del docente ad aggiornare l'app originale e cancellare definitivamente i sei incarichi. Non occorre richiederla di nuovo.
+- Nessun reset, nuovo incarico, modifica del plugin, pubblicazione Sites o deploy su gbprof.it effettuato. Nessuna nuova funzione o prova end-to-end dichiarata riuscita; il test 1 del contratto resta non soddisfatto.
+- Aggiornati soltanto questo report e la descrizione del blocco nel contratto, sul branch della PR #3, attraverso il connettore GitHub; nessuna modifica a main.
+- Per riprendere serve un ambiente capace di leggere **e scrivere** il repository Git originale di Sites tramite il flusso supportato. Primo passo: nuova credenziale temporanea, apertura del sorgente originale, lettura del codice e delle regole locali; poi reset atomico e collaudo dei requisiti. Una copia di documentazione o il solo accesso alla scrivania non bastano.
+- La pubblicazione su gbprof.it resta vietata fino a un'autorizzazione riferita alla versione esatta. REPORT.md deve rimanere escluso dal pacchetto pubblico.
