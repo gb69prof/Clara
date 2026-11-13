@@ -1,0 +1,1 @@
+export function GET(){return Response.json({name:'Clara bis',version:'1.0.0',storage:'server',workspace:'clarabis-owner',conversation:'native-host-message',engine:'scheduled-chatgpt',agentInstructions:'/api/agent/instructions',publicationRequiresExactConsent:true});}

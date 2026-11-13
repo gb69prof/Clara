@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#174e48"><meta name="description" content="Clara bis, la scrivania privata dei tuoi progetti.">
+  <title>Clara bis · I tuoi progetti</title>
+  <link rel="icon" href="favicon.svg"><link rel="stylesheet" href="styles.css">
+  <script defer src="bridge.js"></script><script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Vai al contenuto</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="Navigazione principale">
+      <a class="brand" href="#scrivania"><span class="brand-mark">c<span>·</span></span><span>Clara <strong>bis</strong><small>LA TUA OFFICINA</small></span></a>
+      <nav><button data-view="scrivania" class="nav active"><span aria-hidden="true">◈</span> Scrivania</button><button data-view="progetti" class="nav"><span aria-hidden="true">▤</span> Progetti <span id="projectCount" class="nav-count">0</span></button><button data-view="memoria" class="nav"><span aria-hidden="true">✧</span> Note di progetto</button></nav>
+      <div class="sidebar-note"><span class="eyebrow">IL NOSTRO METODO</span><p>Con Libera pensi.<br>Con Clara realizzi.<br><strong>La scelta finale è tua.</strong></p></div>
+      <div class="owner"><span class="owner-avatar">gb</span><div><strong>gbprof</strong><small>Spazio privato</small></div><span class="lock" aria-label="Privato">◦</span></div>
+    </aside>
+    <div class="workspace">
+      <header class="topbar"><span id="breadcrumb">La tua scrivania</span><div><span id="syncStatus" role="status">Collegamento…</span><button class="icon-button" data-action="refresh" aria-label="Aggiorna lo stato">↻</button></div></header>
+      <main id="main" tabindex="-1"><div class="loading">Sto aprendo il tuo spazio…</div></main>
+      <footer>Clara bis <span>Idee, lavoro e versioni nel tuo archivio privato.</span></footer>
+    </div>
+  </div>
+  <dialog id="modal" aria-labelledby="modalTitle"><div class="modal-heading"><div><span class="eyebrow">CLARA BIS</span><h2 id="modalTitle"></h2></div><button data-action="close" class="icon-button" aria-label="Chiudi finestra">×</button></div><div id="modalBody"></div></dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
